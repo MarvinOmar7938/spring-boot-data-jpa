@@ -2,7 +2,9 @@ package com.bolsadeideas.springboot.app.models.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Marvin Tola
@@ -16,8 +18,8 @@ public class Factura implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
+    private Long id;
 
     private String descripcion;
 
@@ -30,6 +32,14 @@ public class Factura implements Serializable {
 
     @ManyToOne(fetch=FetchType.LAZY)
     private Cliente cliente;
+
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinColumn(name = "factura_id")
+    private List<ItemFactura> items;
+
+    public Factura() {
+        this.items = new ArrayList<ItemFactura>();
+    }
 
     @PrePersist
     public void prePersist(){
@@ -75,6 +85,18 @@ public class Factura implements Serializable {
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public List<ItemFactura> getItems() {
+        return items;
+    }
+
+    public void setItems(List<ItemFactura> items) {
+        this.items = items;
+    }
+
+    public void addItemFactura(ItemFactura item){
+        this.items.add(item);
     }
 
     private static final long serialVersionUID = 1L;

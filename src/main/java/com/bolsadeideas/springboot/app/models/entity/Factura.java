@@ -18,7 +18,6 @@ public class Factura implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
 
     private String descripcion;
@@ -97,6 +96,18 @@ public class Factura implements Serializable {
 
     public void addItemFactura(ItemFactura item){
         this.items.add(item);
+    }
+
+    public Double getTotal(){
+        Double total = 0.0;
+
+        int size = items.size();
+
+        for(int i=0;i<size;i++){
+            total+=items.get(i).calcularImporte();
+        }
+
+        return total;
     }
 
     private static final long serialVersionUID = 1L;

@@ -16,7 +16,8 @@ import java.security.Principal;
 public class LoginController {
 
     @GetMapping("/login")
-    public String login(@RequestParam(value = "error",required = false)String error, Model model, Principal principal, RedirectAttributes flash){
+    public String login(@RequestParam(value = "error",required = false)String error,
+            @RequestParam(value = "logout",required = false)String logout, Model model, Principal principal, RedirectAttributes flash){
 
         if(principal != null){
             flash.addFlashAttribute("info","Ya ha iniciado sesion anteriormente");
@@ -24,6 +25,9 @@ public class LoginController {
         }
         if(error!=null){
             model.addAttribute("error","Error en el login: Nombre de usuario o contaseña incorrecta, por favor vuelva a intentarlo!");
+        }
+        if(logout!=null){
+            model.addAttribute("success","Ha cerrado sesion con exito!");
         }
         return "login";
     }

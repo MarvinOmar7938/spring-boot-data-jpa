@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -73,8 +74,15 @@ public class ClienteController {
     @RequestMapping(value ={"listar","/"},method = RequestMethod.GET)
     public String listar(@RequestParam(name="page",defaultValue = "0") int page, Model model, Authentication authentication){
 
+
         if(authentication != null){
             logger.info("Hola usuario autenticado, tu username es: ".concat(authentication.getName()));
+        }
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        if(auth != null){
+            logger.info("Utilizando forma estatica SecurityContextHolder.getContext().getAuthentication(): Usuario autenticado, tu username es: ".concat(auth.getName()));
         }
 
         Pageable pageRequest = PageRequest.of(page,5);

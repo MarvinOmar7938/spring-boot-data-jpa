@@ -16,7 +16,7 @@ import java.util.Map;
  * @author Marvin Tola
  * @email mtolapacheco@gmail.com
  */
-@Component("listar")
+@Component("listar.csv")
 public class ClienteCsvView extends AbstractView {
 
     public ClienteCsvView() {

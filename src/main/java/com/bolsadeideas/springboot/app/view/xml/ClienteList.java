@@ -11,10 +11,10 @@ import java.util.List;
  * @email mtolapacheco@gmail.com
  */
 
-@XmlRootElement(name = "clientes")
+@XmlRootElement(name = "clientesList")
 public class ClienteList {
 
-    @XmlElement(name = "clientes")
+    @XmlElement(name = "cliente")
     public List<Cliente> clientes;
 
     public ClienteList() {

@@ -1,5 +1,6 @@
 package com.bolsadeideas.springboot.app.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -44,6 +45,7 @@ public class Cliente implements Serializable {
     private Date createAt;
 
     @OneToMany(mappedBy ="cliente" ,fetch = FetchType.LAZY, cascade = CascadeType.ALL,orphanRemoval = true)
+    @JsonIgnore
     private List<Factura> facturas;
 
     public Cliente() {
